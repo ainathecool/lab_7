@@ -3,20 +3,20 @@
 
 name: Node.js CI
 
-on:
+on:  #yaani jab bhe koi yeh push pull hou tou workflow will run here
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
-jobs:
-  build:
+jobs: #tells what the workflow will do
+  build: #build means code will run and be tested as well, agar sirf test karna tou build ke jagah khaali test likh dogay
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #will run on cloud islye doesnt matter if u have ubantu or not
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 18.x] #idhar 3 workflow chalay ga, 1 each for these 3 versions
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,6 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: npm ci #idhar dependencies installed horhi
+    - run: npm run build --if-present #agar upar build nai, sirf test tou dont need this command warna error
     - run: npm test
